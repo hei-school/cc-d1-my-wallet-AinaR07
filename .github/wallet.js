@@ -33,40 +33,30 @@ class Wallet {
     }
 
     getTotalExpenses() {
-        const deletedTransactions = this.transactions.filter(amount => amount < 0);
-        const total = deletedTransactions.reduce((total, amount) => total + amount, 0);
-        return Math.abs(total); // Obtient la valeur absolue du total des dépenses
+        let total = 0;
+        for (const amount of this.transactions) {
+            if (amount < 0) {
+                total += amount;
+            }
+        }
+        return Math.abs(total);
     }
 }
 
 // Exemple d'utilisation de la classe Wallet
-
-// Création d'une instance de Wallet
 const myWallet = new Wallet();
 
-// Ajout de quelques transactions
 myWallet.addTransaction(1000);
 myWallet.addTransaction(1500);
 myWallet.addTransaction(150);
 
-// Affichage du solde actuel
 console.log("Balance:", myWallet.getBalance());
-
-// Affichage de l'historique des transactions
 console.log("Transaction History:", myWallet.getTransactionHistory());
 
-// Suppression de quelques transactions
 myWallet.deleteTransaction(-150);
 myWallet.deleteTransaction(0);
 myWallet.deleteTransaction(0);
 
-// Affichage du total des dépenses
 console.log("Total Expenses:", myWallet.getTotalExpenses());
-
-// Affichage du solde mis à jour après suppression
 console.log("Balance after deletion:", myWallet.getBalance());
-
-// Affichage de l'historique mis à jour des transactions
 console.log("Transaction History:", myWallet.getTransactionHistory());
-
-
